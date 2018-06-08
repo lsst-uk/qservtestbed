@@ -53,10 +53,9 @@ class QservLoader(DbLoader):
                                              out_dirname)
         self.logger = logging.getLogger(__name__)
 
-        run_dir = self.config['qserv']['qserv_run_dir']
-        self._emptyChunksFile = os.path.join(run_dir, "var", "lib",
-                                             "qserv", "empty_" +
-                                             self._dbName +
+        data_dir = self.config['qserv']['qserv_data_dir']
+        self._emptyChunksFile = os.path.join(data_dir, "qserv",
+                                             "empty_" + self._dbName +
                                              ".txt")
         self.dataConfig = data_reader
         self.tmpDir = self.config['qserv']['tmp_dir']
@@ -79,8 +78,6 @@ class QservLoader(DbLoader):
         loaderCmd = self.loaderCmdCommonOpts(table)
 
         loaderCmd += ['--css-remove']
-        #loaderCmd += ['--skip-partition']
-        #loaderCmd += ['--one-table']
 
         if self.multi_node:
             for node in self.nWmgrs:
@@ -148,3 +145,12 @@ class QservLoader(DbLoader):
                 wmgr.xrootdRegisterDb(self._dbName, allowDuplicate=True)
         else:
             self.czar_wmgr.xrootdRegisterDb(self._dbName, allowDuplicate=True)
+
+    def finalize(self):
+        """Finalize data loading process
+        """
+        self.workerInsertXrootdExportPath()
+
+        # xrootd is restarted by wmgr
+        # Reload Qserv (empty) chunk cache
+        self.resetChunksCache()
