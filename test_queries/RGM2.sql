@@ -2,7 +2,7 @@
 /* Model this as a query for filenames for matching WSA images in different bands around positions of sources 
 selected according to a cut on ellipticity. 
 This is, obviously, very similar to Q1, but require images in Y, H and K for colour image.*/
-/*Higher ellipticities pulls out diffraction spikes, this pulls out elliptical galaxies*/
+/*Higher ellipticities pulls out diffraction spikes, this mainly pulls out elliptical galaxies*/
 
 
 select s.ra,s.dec, 
