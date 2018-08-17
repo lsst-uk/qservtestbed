@@ -14,5 +14,6 @@ AND d.filterID=3
 AND v.sourceID=s.sourceID 
 AND v.jprobVar > 0.8
 AND d.aperMag3 > -100
+AND dbo.fGreatCircleDist(d.ra, d.decl,0.0,0.0) < 600
 
 ORDER BY s.sourceID, m.mjdObs
