@@ -2,7 +2,7 @@
 Model this as a selection of stellar objects from the LAS (employing definition of lasPointSource view)  in some region of colour-colour space.
 */
 
-select ra,dec,
+SELECT ra,dec
 FROM   lasSource
 /*     Seamless selection of unique objects: */
 WHERE  (priOrSec <= 0 OR priOrSec = frameSetID)
