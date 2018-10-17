@@ -1,9 +1,13 @@
-/* 4 (query 013) - Find all objects within ? arcseconds of one another that have very similar colors */
+-- WORKING
 
-SELECT DISTINCT o1.sourceID AS s1, o2.sourceID AS s2
-FROM dxsSource as o1, 
- dxsSource as o2
-WHERE dbo.fGreatCircleDist(o1.ra, o1.decl, o2.ra, o2.decl) < 0.1
- AND o1.sourceID <> o2.sourceID
- AND ABS( o1.jmhPnt - o2.jmhPnt ) < 0.5
- AND ABS( o1.hmkPnt - o2.hmkPnt ) < 0.5
+/* 3. (query 047) - Select all variable objects within certain distance (e.g. 0.1 arcmin) of all known galaxies*/
+
+SELECT v.sourceID as vID, v.ra as vRA, v.dec as vDec, s.sourceID as dID, s.ra as dRA, s.dec as dDec, dbo.fGreatCircleDist(s.ra, s.dec, v.ra, v.dec) as angsep
+
+FROM dxsVariability AS v, dxsSource AS s
+
+WHERE v.sourceID <> s.sourceID
+ AND s.pGalaxy > 0.99
+ AND v.jprobVar > 0.9
+ AND v.ra > 0.0
+ AND dbo.fGreatCircleDist(s.ra, s.dec, v.ra, v.dec) < 0.1

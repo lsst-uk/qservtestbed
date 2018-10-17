@@ -1,10 +1,12 @@
-/* 8 (query 034) - Search for merging galaxy pairs, as per the prescription in Allam et al. 2004 */
+-- WORKING
 
-SELECT g1.sourceID, g2.sourceID, n.distanceMins
-FROM dxsSource AS g1, dxsSourceNeighbours AS n, dxsSource AS g2 
-WHERE (g1.sourceID = n.masterObjID) 
-AND (g2.sourceID = n.slaveObjID)
-AND g1.sourceID < g2.sourceID
-AND g1.mergedClass = 1 -- same as pGalaxy>90?
-AND g2.mergedClass = 1
-ORDER BY n.distanceMins
+/* 4 (query 013) - Find all objects within 0.1 arcseconds of one another that have very similar colors */
+
+SELECT DISTINCT s1.sourceID AS s1, s2.sourceID AS s2
+
+FROM dxsSource as s1, dxsSource as s2
+
+WHERE dbo.fGreatCircleDist(s1.ra, s1.dec, s2.ra, s2.dec) < 0.1
+ AND s1.sourceID <> s2.sourceID
+ AND ABS( s1.jmhPnt - s2.jmhPnt ) < 0.5
+ AND ABS( s1.hmkPnt - s2.hmkPnt ) < 0.5
