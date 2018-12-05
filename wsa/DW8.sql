@@ -1,47 +1,31 @@
--- WORKING but missing specifics - not fully applicable to UKIDSS data
-
 /* 8 (query 034) - Search for merging galaxy pairs, as per the prescription in Allam et al. 2004 */
 
-SELECT s1.sourceID, s2.sourceID, n.distanceMins
-
-FROM dxsSource AS s1, dxsSourceNeighbours AS n, dxsSource AS s2 
-
-WHERE (s1.sourceID = n.masterObjID) 
-AND (s2.sourceID = n.slaveObjID)
-AND s1.sourceID < s2.sourceID
-AND s1.mergedClass = 1 -- same as pGalaxy>90?
-AND s2.mergedClass = 1
-AND (s1.jGausig BETWEEN 0.25*s2.jGausig AND 4.0*s2.jGausig)
-AND (s2.jGausig BETWEEN 0.25*s1.jGausig AND 4.0*s1.jGausig)
-AND (n.distance <= (s1.jGausig + s2.jGausig))
-
-ORDER BY n.distanceMins
-
-
-/*
-AND N.NeighborType = 3
-   AND s1.petrorad_u > 0 AND s2.petrorad_u > 0
-   AND s1.petrorad_g > 0 AND s2.petrorad_g > 0
-   AND s1.petrorad_r > 0 AND s2.petrorad_r > 0
-   AND s1.petrorad_i > 0 AND s2.petrorad_i > 0
-   AND s1.petrorad_z > 0 AND s2.petrorad_z > 0
-   AND s1.petroradErr_g > 0 AND s2.petroradErr_g > 0
-   AND s1.petroMag_g BETWEEN 16 AND 21
-   AND s2.petroMag_g BETWEEN 16 AND 21
-   AND s1.uMag > -9999
-   AND s1.gMag > -9999
-   AND s1.rMag > -9999
-   AND s1.iMag > -9999
-   AND s1.zMag > -9999
-   AND s1.yMag > -9999
-   AND s2.uMag > -9999
-   AND s2.gMag > -9999
-   AND s2.rMag > -9999
-   AND s2.iMag > -9999
-   AND s2.zMag > -9999
-   AND s2.yMag > -9999
-   AND abs(s1.gMag - s2.gMag) > 3
-   AND (s1.petroR50_r BETWEEN 0.25*s2.petroR50_r AND 4.0*s2.petroR50_r)
-   AND (s2.petroR50_r BETWEEN 0.25*s1.petroR50_r AND 4.0*s1.petroR50_r)
-   AND (n.distance <= (s1.petroR50_r + s2.petroR50_r))
-   */
+select g1.objID as Gal1_ID, g2.objID as Gal2_ID
+from bestdr7..Galaxy g1, bestdr7..Neighbors n, bestdr7..Galaxy g2	   
+where 
+   g1.objID = N.objID     				                    
+   and g2.objID = N.NeighborObjID
+   and g1.objId < g2.ObjID
+   and N.NeighborType = 3
+   and g1.petrorad_u > 0 and g2.petrorad_u > 0
+   and g1.petrorad_g > 0 and g2.petrorad_g > 0
+   and g1.petrorad_r > 0 and g2.petrorad_r > 0
+   and g1.petrorad_i > 0 and g2.petrorad_i > 0
+   and g1.petrorad_z > 0 and g2.petrorad_z > 0
+   and g1.petroradErr_g > 0 and g2.petroradErr_g > 0
+   and g1.petroMag_g BETWEEN 16 and 21
+   and g2.petroMag_g BETWEEN 16 and 21
+   and g1.modelmag_u > -9999
+   and g1.modelmag_g > -9999
+   and g1.modelmag_r > -9999
+   and g1.modelmag_i > -9999
+   and g1.modelmag_z > -9999
+   and g2.modelmag_u > -9999
+   and g2.modelmag_g > -9999
+   and g2.modelmag_r > -9999
+   and g2.modelmag_i > -9999
+   and g2.modelmag_z > -9999
+   and abs(g1.modelmag_g - g2.modelmag_g) > 3
+   and (g1.petroR50_r BETWEEN 0.25*g2.petroR50_r AND 4.0*g2.petroR50_r)
+   and (g2.petroR50_r BETWEEN 0.25*g1.petroR50_r AND 4.0*g1.petroR50_r)
+   and (n.distance <= (g1.petroR50_r + g2.petroR50_r))

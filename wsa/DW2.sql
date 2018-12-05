@@ -1,5 +1,3 @@
--- WORKING - Ref location is position of a DXS survery location
-
 /* 2. (query 007) - Select time series data for all objects in a given area of the sky, in a given photometric band (J, in our case) with a given variability index (>0.8) */
 
 SELECT s.sourceID, v.jmeanMag, m.mjdObs, d.aperMag3, d.aperMag3err
@@ -16,6 +14,6 @@ AND d.filterID=3
 AND v.sourceID=s.sourceID 
 AND v.jprobVar > 0.8
 AND d.aperMag3 > -100
-AND dbo.fGreatCircleDist(d.ra, d.dec,334.25,0.3) < 30 -- ARCMINS for WSA!!!
+AND dbo.fGreatCircleDist(d.ra, d.dec,334.25,0.3) < 30
 
 ORDER BY s.sourceID, m.mjdObs

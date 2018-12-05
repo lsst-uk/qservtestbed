@@ -1,9 +1,11 @@
-/* 4 (query 013) - Find all objects within ? arcseconds of one another that have very similar colors */
+/* 3. (query 047) - Select all variable objects within certain distance (e.g. 0.1 arcmin) of all known galaxies*/
 
-SELECT DISTINCT o1.sourceID AS s1, o2.sourceID AS s2
-FROM UKIDSSDR8_dxsSource as o1, 
- UKIDSSDR8_dxsSource as o2
-WHERE scisql_angSep(o1.ra, o1.decl, o2.ra, o2.decl) < 0.0167
- AND o1.sourceID <> o2.sourceID
- AND ABS( o1.jmhPnt - o2.jmhPnt ) < 0.5
- AND ABS( o1.hmkPnt - o2.hmkPnt ) < 0.5
+SELECT v.sourceID as vID, v.ra as vRA, v.decl as vDec, g.sourceID as dID, g.ra as dRA, g.decl as dDec, scisql_angSep(g.ra, g.decl, v.ra, v.decl) as angsep
+
+FROM UKIDSSDR8.dxsVariability AS v, UKIDSSDR8_dxsSource.dxsSource AS g
+
+WHERE v.sourceID <> g.sourceID
+ AND g.pGalaxy > 0.99
+ AND v.jprobVar > 0.9
+ AND v.ra > 0.0
+ AND scisql_angSep(g.ra, g.decl, v.ra, v.decl) < 0.00167
