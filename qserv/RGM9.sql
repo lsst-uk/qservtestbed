@@ -21,5 +21,7 @@ and x.sourceID=s.sourceID and x.multiframeID=d.multiframeID AND x.extNum=d.extNu
 and scisql_angSep(s.ra, s.decl, d.ra, d.decl) < 0.01 and d.aperMag3 > 0 group by x.sourceID;
 
 This parses/runs but eventaully comes back with
+ERROR 4120 (Proxy): Unable to return query results:
+Failure while merging result
 
 */
