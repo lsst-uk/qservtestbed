@@ -1,6 +1,6 @@
 /* Q1: Carole Mundell wants to be able to do forced-photometry on near-IR (e.g. VISTA) images at the positions of LSST sources that could be AGN */
 /* Had to explicitly give the SQL for the reliablelaspointsource view and remove the sub-query. Spotted a problem with NOT LIKE, then another 
-but with -1 and +1.0 */
+but with -1 and +1.0 : 176 rows in set (2 min 0.23 sec) */
 
 select mf.fileName,f.shortName,l.ra,l.decl,obstype,frameType from
 UKIDSSDR8_lasSource.lasSource as l,UKIDSSDR8.CurrentAstrometry as ca, UKIDSSDR8.Multiframe as
