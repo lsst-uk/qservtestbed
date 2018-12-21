@@ -3,7 +3,7 @@
 but with -1 and +1.0 */
 
 select mf.fileName,f.shortName,l.ra,l.decl,obstype,frameType from
-lasSource as l,UKIDSSDR8.CurrentAstrometry as ca, UKIDSSDR8.Multiframe as
+UKIDSSDR8_lasSource.lasSource as l,UKIDSSDR8.CurrentAstrometry as ca, UKIDSSDR8.Multiframe as
 mf, UKIDSSDR8.MultiframeDetector as mfd, UKIDSSDR8.Filter as f where
 mf.multiframeID=mfd.multiframeID and mf.multiframeID=ca.multiframeID and
 mfd.extNum=ca.extNum and f.filterID=mf.filterID and mf.fileName != 'NONE'
