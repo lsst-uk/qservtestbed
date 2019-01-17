@@ -1,10 +1,10 @@
 /* 8 (query 034) - Search for merging galaxy pairs, as per the prescription in Allam et al. 2004 */
 
 select g1.objID as Gal1_ID, g2.objID as Gal2_ID
-from bestdr7..PhotoObjAll g1, bestdr7..Photoz n, bestdr7..PhotoObjAll g2	   
+from BestDR7_PhotoObjAll.PhotoObjAll g1, BestDR7_PhotoObjAll.PhotoObjAll g2, BestDr7.Photoz n	   
 where 
-   g1.type = 3 and g2.type = 3 
-   and g1.objID = n.objID     				                    
+   g1.type = 3 and g2.type = 3
+   and g1.objID = n.objID
    and g2.objID = n.nnObjID
    and g1.objId < g2.ObjID
    and g1.petrorad_u > 0 and g2.petrorad_u > 0
@@ -28,4 +28,5 @@ where
    and abs(g1.modelmag_g - g2.modelmag_g) > 3
    and (g1.petroR50_r BETWEEN 0.25*g2.petroR50_r AND 4.0*g2.petroR50_r)
    and (g2.petroR50_r BETWEEN 0.25*g1.petroR50_r AND 4.0*g1.petroR50_r)
-   and (dbo.fGreatCircleDist(g1.ra, g1.dec, g2.ra, g2.dec)/60.0 <= (g1.petroR50_r + g2.petroR50_r))
+   and (scisql_angSep(g1.ra, g1.dec, g2.ra, g2.dec)/3600.0 <= (g1.petroR50_r + g2.petroR50_r))
+   and scisql_angSep(g1.ra, g1.dec, g2.ra, g2.dec) < 0.1

@@ -2,7 +2,7 @@
 
 SELECT v.sourceID as vID, v.ra as vRA, v.decl as vDec, g.sourceID as dID, g.ra as dRA, g.decl as dDec, scisql_angSep(g.ra, g.decl, v.ra, v.decl) as angsep
 
-FROM UKIDSSDR8.dxsVariability AS v, UKIDSSDR8_dxsSource.dxsSource AS g
+FROM UKIDSSDR8_dxsSource.dxsSource AS g, UKIDSSDR8.dxsVariability AS v
 
 WHERE v.sourceID <> g.sourceID
  AND g.pGalaxy > 0.99
