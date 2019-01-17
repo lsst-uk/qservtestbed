@@ -2,7 +2,7 @@
 
 SELECT s.sourceID, v.jmeanMag, m.mjdObs, d.aperMag3, d.aperMag3err
 
-FROM dxsSource_test1.dxsSourceXDetectionBestMatch AS x,UKIDSSDR8_dxsDetection.dxsDetection AS d, UKIDSSDR8.Multiframe AS m, dxsSource_test1.dxsVariability AS v, dxsSource_test1.dxsSource AS s
+FROM UKIDSSDR8_dxsDetection.dxsDetection AS d, UKIDSSDR8_dxsSource.dxsSource AS s, UKIDSSDR8.dxsSourceXDetectionBestMatch AS x,UKIDSSDR8.Multiframe AS m, UKIDSSDR8.dxsVariability AS v
 
 WHERE x.sourceID=s.sourceID 
 AND x.multiframeID=d.multiframeID 
