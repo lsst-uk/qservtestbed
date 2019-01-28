@@ -28,5 +28,5 @@ where
    and abs(g1.modelmag_g - g2.modelmag_g) > 3
    and (g1.petroR50_r BETWEEN 0.25*g2.petroR50_r AND 4.0*g2.petroR50_r)
    and (g2.petroR50_r BETWEEN 0.25*g1.petroR50_r AND 4.0*g1.petroR50_r)
-   and (scisql_angSep(g1.ra, g1.dec, g2.ra, g2.dec)/3600.0 <= (g1.petroR50_r + g2.petroR50_r))
-   and scisql_angSep(g1.ra, g1.dec, g2.ra, g2.dec) < 0.1
+   and (scisql_angSep(g1.ra, g1.decl, g2.ra, g2.decl)/3600.0 <= (g1.petroR50_r + g2.petroR50_r))
+   and scisql_angSep(g1.ra, g1.decl, g2.ra, g2.decl) < 0.1
