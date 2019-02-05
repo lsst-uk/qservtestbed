@@ -1,6 +1,6 @@
 /* 2. (query 007) - Select time series data for all objects in a given area of the sky, in a given photometric band (J, in our case) with a given variability index (>0.8) */
 
-SELECT s.sourceID, v.jmeanMag, m.mjdObs, d.aperMag3, d.aperMag3err
+SELECT s.sourceID as sID, v.jmeanMag as meanMag, m.mjdObs as MJD, d.aperMag3 as obsMag, d.aperMag3err as errMAg
 
 FROM UKIDSSDR8_dxsDetection.dxsDetection AS d, UKIDSSDR8_dxsSource.dxsSource AS s, UKIDSSDR8.dxsSourceXDetectionBestMatch AS x,UKIDSSDR8.Multiframe AS m, UKIDSSDR8.dxsVariability AS v
 
