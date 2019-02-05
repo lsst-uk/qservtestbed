@@ -9,4 +9,4 @@ WHERE scisql_angSep(s1.ra, s1.decl, s2.ra, s2.decl) < 0.0167
  AND s1.sourceID <> s2.sourceID
  AND ABS( s1.jmhPnt - s2.jmhPnt ) < 0.5
  AND ABS( s1.hmkPnt - s2.hmkPnt ) < 0.5
-AND ABS( s1.jmkPnt - s2.jmkPnt ) < 0.5
+ AND ABS( s1.jmkPnt - s2.jmkPnt ) < 0.5
