@@ -13,8 +13,8 @@ obstype LIKE 'OBJECT' and frameType like '%stack' and j_1mhpnt +hmkpnt >
 2.5 and kapermag3 > 0 and kapermag3 < 16.5 AND (priOrSec<=0 OR
 priOrSec=frameSetID) AND yClass = -1.0AND yppErrBits = 0 AND j_1Class =
 -1.0 AND j_1ppErrBits = 0 AND hClass = -1.0AND hppErrBits = 0 AND
-(j_2Class=-1.0OR j_2Class = -9999) AND j_2ppErrBits <= 0 AND
-(kClass=-1.0OR kClass = -9999)  AND kppErrBits <= 0 AND yXi BETWEEN -1.0
+(j_2Class=-1.0 OR j_2Class = -9999) AND j_2ppErrBits <= 0 AND
+(kClass=-1.0 OR kClass = -9999)  AND kppErrBits <= 0 AND yXi BETWEEN -1.0
 AND 1.0 AND yEta BETWEEN -1.0 AND 1.0 AND j_1Xi BETWEEN -1.0 AND 1.0 AND
 j_1Eta BETWEEN -1.0 AND 1.0 AND hXi BETWEEN -1.0 AND 1.0 AND hEta BETWEEN
 -1.0 AND 1.0 AND ((kXi BETWEEN -1.0 AND 1.0 AND kEta BETWEEN -1.0 AND 1.0)
