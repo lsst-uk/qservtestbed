@@ -1,5 +1,6 @@
 
-/* problems with select A-B as c : 237 rows in set (12.25 sec) */
+/* Aprajita Verma wants a sources with red centres and blue outskirts to aid search for double source plane lenses.
+Maybe look at colours at different apertures. problems with select A-B as c : 237 rows in set (12.25 sec) */
 
 select ra,decl,frameSetID,yAperMag3,j_1AperMag3,hAperMag3,kAperMag3,
 (hAperMag6-kAperMag6)-(hAperMag3-kAperMag6),
