@@ -15,3 +15,4 @@ AND    (j_2Class BETWEEN -2 AND -1 OR j_2Class = -9999)
 AND    (j_2ppErrBits < 256)
 AND    (kClass   BETWEEN -2 AND -1 OR kClass = -9999)
 AND    (kppErrBits   < 256)
+AND yAperMag3-j_1Apermag3 < 0 AND abs(j_1AperMag3 - j_2AperMag3 ) < 0.05
