@@ -3,7 +3,7 @@
 Got to the query below but then hit a bug with Qserv not allowing more than one attribute in the group by.
 Reported to devs.
 
-*/
+
 SELECT v.sourceID as vID, s.ra as sra, s.decl as sdecl, v.framesetID as
 vFSID, knGoodObs as gknGoodObs, kMinMag as gkMinMag, kmedianMag as
 gkmedianMag, kMaxMag as gkMaxMag, variableClass as gvariableClass,
@@ -18,3 +18,4 @@ AND kMinMag>0. AND d.seqNum>0 AND d.ppErrBits IN (0,16) AND d.filterID=5 AND
 d.aperMag5>0 AND d.aperMag5<(kmedianMag-0.5) group by vID,  sra, sdecl,
 vFSID, gknGoodObs, gkMinMag, gkmedianMag, gkMaxMag, gvariableClass,
 gmergedClass;
+*/

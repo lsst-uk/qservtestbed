@@ -12,4 +12,5 @@ use photoz twice.
 */
 select pz1.z as z1,pz1.zErr as zErr1, pz2.z as z2,pz2.zErr as zErr2 from BestDr7.Photoz as pz1,  BestDr7.Photoz as pz2 
 where pz1.objID=pz2.objID and pz1.z > 0.3 and pz1.z < 0.4
-select  pz1.z, pz1.zerr, pz2.z, pz2.zerr from bestdr8..photoz as pz1, bestdr8..photozrf as pz2 where pz1.objid=pz2.objid and pz1.z > 0.3 and pz1.z < 0.4
+
+/* select  pz1.z, pz1.zerr, pz2.z, pz2.zerr from bestdr8..photoz as pz1, bestdr8..photozrf as pz2 where pz1.objid=pz2.objid and pz1.z > 0.3 and pz1.z < 0.4*/
