@@ -1,0 +1,121 @@
+DbCopy.py is a program to migrate MS SQLserver database schemas into MySql
+and to outgest the data into ASCII formated files to be able to ingest into a
+MySql database.
+
+Prerequisite is a working installation of openDBcopy version 0.51rc2
+(http://opendbcopy.sourceforge.net/). openDBcopy is an open-source project by
+Anthony Smith, published under the terms of the GNU General Public License.
+
+It needs the environment variables JAVA_HOME, OPENDBCOPY_HOME, and CLASSPATH
+to be set correctly. CLASSPATH is pointing to the SQL jar files needed by
+openDBcopy.
+In our case the environment variables are:
+JAVA_HOME=<userpath>/usr/downloads/jdk1.8.0_152
+OPENDBCOPY_HOME=<userpath>/usr/local/openDBcopy
+CLASSPATH=<userpath>/usr/downloads/opendbcopy-0.51/mysql-connector-java-5.1.44/mysql-connector-java-5.1.44-bin.jar:<userpath>/usr/downloads/opendbcopy-0.51/sqljdbc_4.1/enu/sqljdbc41.jar
+
+Also copy DbCopy.py to $OPENDBCOPY_HOME/plugins/opendbcopy.schemageneration/
+
+DbCopy.py is a program to migrate MS SQLserver database schemas into MySql
+and to outgest the data into ASCII formated files to be able to ingest into a
+MySql database.
+
+Prerequisite is a working installation of openDBcopy version 0.51rc2
+(http://opendbcopy.sourceforge.net/). openDBcopy is an open-source project by
+Anthony Smith, published under the terms of the GNU General Public License.
+
+It needs the environment variables JAVA_HOME, OPENDBCOPY_HOME, and CLASSPATH
+to be set correctly. CLASSPATH is pointing to the SQL jar files needed by
+openDBcopy.
+In our case the environment variables are:
+JAVA_HOME=<userpath>/usr/downloads/jdk1.8.0_152
+OPENDBCOPY_HOME=<userpath>/usr/local/openDBcopy
+CLASSPATH=<userpath>/usr/downloads/opendbcopy-0.51/mysql-connector-java-5.1.44/mysql-connector-java-5.1.44-bin.jar:<userpath>/usr/downloads/opendbcopy-0.51/sqljdbc_4.1/enu/sqljdbc41.jar
+
+Also copy DbCopy.py to $OPENDBCOPY_HOME/plugins/opendbcopy.schemageneration/
+
+At the moment DbCopy.py also needs the VDFS (VISTA Data Flow System) software installed and in your python path.
+
+Now you should be set up to run the migration.
+
+1.) Ensure the output directories are clean of any files from a previous run.
+# delete hbm dir
+./DbCopy.py -C h
+
+# delete sql dir
+./DbCopy.py -C s
+
+2.) Run opendDBcopy
+cd $OPENDBCOPY_HOME/bin
+./start.sh &
+
+Load the 'Migrate Database schema (DDL)' Plugin:
+>Plugin>Select New Plugin>Migrate Database schema (DDL)
+
+* In the tab 0. Configuration:
+Select Database Dialect:   MySQL
+...Java Package Name:      schema
+...outer join...:          auto
+...lazy initialization:    false
+Mark collections...:       false
+
+Unique primary key generation algorithm: assigned
+
+* In the tab 1. Database Connections:
+Source Database Connection
+Driver Name:  Microsoft MSSQL Server JDBC Driver
+Driver Class: com.microsoft.sqlserver.jdbc.SQLServerDriver
+URL:          jdbc:sqlserver://<IP>:<port>;DatabaseName=<MSSQLServerDB>
+
+Destination Database Connection
+Driver Name:  MySQL Driver
+Driver Class: com.mysql.jdbc.Driver
+URL:          jdbc:mysql://<IP>:<port>;DatabaseName=<MySQLDB>
+
+Fill in the appropriate User Names and Passwords and press <Apply & Test>.
+If you don't get any errors, continue to the next tab.
+
+* In the tab 2. Source Model:
+Catalog: <MSSQLServerDB> (ie. the database name from tab 1)
+Schema:  dbo
+Tick 'Read primary keys' and press <Capture Source Model>.
+
+* In the tab 3. Tables to Migrate:
+Select the tables you want to migrate.
+
+* In the tab 4. Columns to Migrate:
+Select the columns you want to migrate. (Normally all.)
+
+* In the tab 5. Execute Plugin:
+Press <Execute> and you'll get the hibernate created XML files of your table
+schemas in $OPENDBCOPY_HOME/plugins/opendbcopy.schemageneration/hbm
+
+--
+
+Now go back to your working directory to translate the XML schemas to MySQL:
+cd $OPENDBCOPY_HOME/plugins/opendbcopy.schemageneration/
+
+Cleanup the output directories:
+# delete .java files
+./DbCopy.py -C j
+
+# delete files in views/ and excluded/
+./DbCopy.py -C v
+
+# delete lib dir
+./DbCopy.py -C l
+
+# delete .class files
+./DbCopy.py -C c
+
+# fix .xml files
+./DbCopy.py -F x:BestDR7
+
+# create .java files from .xml files
+./DbCopy.py -H
+
+# fix .java files
+./DbCopy.py -F j
+
+# compile .java files into .class files
+./DbCopy.py -J
