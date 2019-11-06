@@ -12,4 +12,3 @@ WHERE   S1.type =  6
    AND  S1.r-S1.i > 0.4 
    AND  S1.i-S1.z > 0.4
    AND  S1.objID <> S2.objID
-   AND  scisql_angSep(S1.ra, S1.decl, S2.ra, S2.decl)<0.1
